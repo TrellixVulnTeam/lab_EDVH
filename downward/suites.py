@@ -9,12 +9,15 @@ def find_domain_file(benchmarks_dir, domain, problem):
     For a given problem filename "<taskname>.<ext>", check the following
     domain filenames: "domain.pddl", "<taskname>-domain.<ext>",
     "domain_<taskname>.<ext>" and "domain-<taskname>.<ext>", where ".<ext>"
-    is optional.
+    is optional. Additionally, check for "<tas>-domain.pddl" where "<tas>"
+    are the first three characters of the problem filename, to allow
+    finding p01-domain.pddl for p01-airport-p1.pddl.
     """
     problem_root, ext = os.path.splitext(problem)
     domain_basenames = [
         "domain.pddl",
         problem_root + "-domain" + ext,
+        problem_root[:3] + "-domain.pddl", # for airport
         "domain_" + problem,
         "domain-" + problem,
     ]
